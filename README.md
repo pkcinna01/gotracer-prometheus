@@ -2,7 +2,7 @@
 
 ## Synopsis
 
-Basically a cron job runs gotracer-prometheus every 2 minutes.  The output is placed in /opt/prometheus/textfile_collector (TODO change to /opt to /var for output data).
+Basically a cron job runs gotracer-prometheus every 2 minutes.  The output is placed in /opt/prometheus/textfile_collector (TODO change /opt to /var for output data).
 
 Any Prometheus installation accessing the node exporter will have data like example at /opt/prometheus//textfile_collector/epsolar.prom
 
