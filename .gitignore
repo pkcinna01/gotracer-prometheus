@@ -1,2 +1,9 @@
-gotracer-prometheus
+# Intellij
+.idea/
+*.iml
+*.iws
 
+
+gotracer-prometheus
+src/gotracer-prometheus
+install/opt/prometheus/node_exporter/node_exporter

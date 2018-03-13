@@ -1,8 +1,13 @@
 package main
 
+# uses serial drivers from epsolar project:
+#pkcinna@chronos:~/proj/gotracer-prometheus$ sudo insmod ./xr_usb_serial_common-1a/xr_usb_serial_common.ko
+#pkcinna@chronos:~/proj/gotracer-prometheus$ sudo modprobe usbserial
+
 import (
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/spagettikod/gotracer"
 )
@@ -12,7 +17,7 @@ type MpptInfo struct {
 	title   string
 }
 
-var mpptByPort map[string]MpptInfo = map[string]MpptInfo{"/dev/ttyXRUSB0": MpptInfo{"HQST", "EPever 40A"}, "/dev/ttyXRUSB1": MpptInfo{"Renogy", "EPever 30A"}}
+var mpptByPort map[string]MpptInfo = map[string]MpptInfo{"/dev/ttyXRUSB0": MpptInfo{"HQST", "EPever 40A"}, "/dev/ttyXRUSB1": MpptInfo{"Renogy", "EPever 30A"}, "*": MpptInfo{"All", "All"}}
 
 func prometheusExportField(port string, key string, value string) string {
 	var deviceInfo string = ""
@@ -53,23 +58,25 @@ func prometheusExport(usbPortPath string, tracerStatus *gotracer.TracerStatus) {
 
 func main() {
 
-	usbPortPaths := []string{"/dev/ttyXRUSB0", "/dev/ttyXRUSB1"}
+	usbPortPaths := []string{"/dev/ttyXRUSB0", "/dev/ttyXRUSB1" }
+	errCnt := 0
 
 	for _, usbPortPath := range usbPortPaths {
 		//fmt.Printf("%s Status:\n", usbPortPath)
 		status, err := gotracer.Status(usbPortPath)
 		if err != nil {
-			log.Fatal(err)
+			errCnt++
+			log.Printf("ERROR %s: %+v", usbPortPath, err)
 		} else {
 			prometheusExport(usbPortPath, &status)
-			/*jsonStatus, err := json.Marshal(status)
-			if err != nil {
-				log.Fatal(err)
-			} else {
-				fmt.Println(string(jsonStatus))
-			}
-			*/
 		}
-		//fmt.Println(status)
+		serialReadOk := "1" 
+		if err != nil {
+			serialReadOk = "0"
+		}
+		fmt.Println(prometheusExportField(usbPortPath, "SerialReadOk", serialReadOk))
 	}
+
+	fmt.Println(prometheusExportField("*", "SerialReadErrorCnt", fmt.Sprintf("%d",errCnt)))
+	os.Exit(errCnt)
 }

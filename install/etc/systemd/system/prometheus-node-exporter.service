@@ -1,0 +1,16 @@
+
+[Unit]
+Description=Prometheus Node Exporter
+#After=network.target auditd.service
+
+[Service]
+ExecStart=/opt/prometheus/node_exporter/node_exporter.sh start
+#ExecStop=/opt/prometheus/node_exporter/node_exporter.sh stop
+#ExecReload=/bin/kill -HUP $MAINPID
+#KillMode=process
+#Restart=on-failure
+Type=idle
+
+[Install]
+WantedBy=multi-user.target
+Alias=node-exporter.service
