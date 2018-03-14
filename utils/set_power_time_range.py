@@ -1,3 +1,12 @@
+#
+# Set time when charge controllers enable load terminals
+#
+# There are two time spans that can be set.  For example one
+# can be set to define when fans are enabled in afternoon and 
+# the other could be for turning on security lights at night
+#
+# comment/uncomment write commands below to view or set
+#
 
 from pyepsolartracer.client import EPsolarTracerClient
 from pyepsolartracer.registers import registers,coils,registerByName

@@ -1,4 +1,7 @@
-
+#
+# Set time on charge controllers based on local time while running this script
+# comment/uncomment write commands below to view or set time
+#
 from pyepsolartracer.client import EPsolarTracerClient
 from pyepsolartracer.registers import registers,coils,registerByName
 from pymodbus.client.sync import ModbusSerialClient

@@ -1,0 +1,77 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Prometheus - EpSolar",
+		"_postman_id": "566a1580-bdc5-6bdc-67d1-be83d1a81c0b",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Delete by ip for epsolar",
+			"request": {
+				"url": {
+					"raw": "https://monitor.xmonit.com/api/v1/series?match[]={job=\"chronos\",__name__=~\"epsolar_SerialReadErrorCnt\",instance=\"192.168.1.52:9100\"}",
+					"protocol": "https",
+					"host": [
+						"monitor",
+						"xmonit",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"series"
+					],
+					"query": [
+						{
+							"key": "match[]",
+							"value": "{job=\"chronos\",__name__=~\"epsolar_SerialReadErrorCnt\",instance=\"192.168.1.52:9100\"}",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete All chronos22",
+			"request": {
+				"url": {
+					"raw": "https://monitor.xmonit.com/api/v1/series?match[]={job=\"chronos22\"}",
+					"protocol": "https",
+					"host": [
+						"monitor",
+						"xmonit",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"series"
+					],
+					"query": [
+						{
+							"key": "match[]",
+							"value": "{job=\"chronos22\"}",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
